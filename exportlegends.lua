@@ -339,10 +339,17 @@ function export_more_legends_xml()
             file:write("\t\t<race>"..(df.global.world.raws.creatures.all[entityV.race].creature_id):lower().."</race>\n")
         end
         file:write("\t\t<type>"..(df_enums.historical_entity_type[entityV.type]):lower().."</type>\n")
-        if entityV.type == df.historical_entity_type.Religion then -- Get worshipped figure
-            if (entityV.unknown1b ~= nil and entityV.unknown1b.worship ~= nil) then
-                for k,v in pairs(entityV.unknown1b.worship) do
+        if entityV.type == df.historical_entity_type.Religion or entityV.type == df.historical_entity_type.MilitaryUnit then -- Get worshipped figures
+            if (entityV.unknown1b ~= nil and entityV.unknown1b.deities ~= nil) then
+                for k,v in pairs(entityV.unknown1b.deities) do
                     file:write("\t\t<worship_id>"..v.."</worship_id>\n")
+                end
+            end
+        end
+        if entityV.type == df.historical_entity_type.MilitaryUnit then -- Get favorite weapons
+            if (entityV.resources ~= nil and entityV.resources.weapon_type ~= nil) then
+                for weaponK,weaponID in pairs(entityV.resources.weapon_type) do
+                    file:write("\t\t<weapon>"..getItemSubTypeName(df.item_type.WEAPON, weaponID).."</weapon>\n")
                 end
             end
         end
