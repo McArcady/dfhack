@@ -6104,7 +6104,7 @@ void viewscreen_unitklokerst::printScripts(UnitInfo *cur)
 
     if (show_details != 0 && show_details < 4) {
 
-        if (ds.size() > to_lim) {
+        if ((ds.size() > to_lim) && (to_lim >= 3)) {
             ds.resize(to_lim - 3); ds += "...";
         }
         ds.resize(to_max);
@@ -6129,7 +6129,7 @@ void viewscreen_unitklokerst::printScripts(UnitInfo *cur)
         if (rn + dn > to_lim) {
             rg = " Rgds " + cur->regards;
             rn = rg.size();
-            if (rn + dn > to_lim) {
+            if ((rn + dn > to_lim) && (to_lim - rn >= 3)) {
                 ds.resize(to_lim - rn - 3);
                 ds += ".. ";
                 dn = ds.size();
